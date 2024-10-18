@@ -1,4 +1,4 @@
-# XYZ
+# XYZ - TRENCHS Nicolas
 
 <img src="docs/screenshots/home.png" alt="Page d'accueil" />
 
