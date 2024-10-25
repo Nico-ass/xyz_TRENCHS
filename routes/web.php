@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WeekController;
@@ -21,6 +22,11 @@ Route::middleware(EnsureValidCodeMiddleware::class, 'guest')->group(function () 
 });
 
 Route::middleware('auth')->group(function () {
+    // Routes pour les catégories
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+
     // App
     Route::get('/', HomeController::class)->name('app.home');
 

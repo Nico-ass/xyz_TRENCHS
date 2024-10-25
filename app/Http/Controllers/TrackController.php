@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Week;
 use App\Models\Track;
 use App\Players\Player;
@@ -38,6 +39,7 @@ class TrackController extends Controller
         return view('app.tracks.create', [
             'week' => Week::current(),
             'remaining_tracks_count' => $user->remainingTracksCount(),
+            'categories' => Category::all(), // Récupère toutes les catégories
         ]);
     }
 
@@ -52,11 +54,12 @@ class TrackController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'artist' => ['required', 'string', 'max:255'],
             'url' => ['required', 'url', new PlayerUrl()],
+            'category_id' => ['required', 'exists:categories,id'], // Ajoute la validation pour category_id
         ]);
 
         DB::beginTransaction();
 
-        // Set track title, artist and url
+        // Set track title, artist, url, and category_id
         $track = new Track($validated);
 
         // Set track's user + week
@@ -67,13 +70,16 @@ class TrackController extends Controller
             // Fetch track detail from provider (YT, SC)
             $details = $player->details($track->url);
 
-            // Set player_id, track_id and thumbnail_url
+            // Set player_id, track_id, thumbnail_url
             $track->player = $details->player_id;
             $track->player_track_id = $details->track_id;
             $track->player_thumbnail_url = $details->thumbnail_url;
 
             // Publish track
             $track->save();
+
+            // Debugging line
+            \Log::info('Track created:', ['track' => $track]);
 
             DB::commit();
         } catch (PlayerException $th) {
