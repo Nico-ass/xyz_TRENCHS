@@ -1,4 +1,4 @@
-# XYZ - TRENCHS Nicolas
+# XYZ - TRENCHS Nicolas G8
 
 <img src="docs/screenshots/home.png" alt="Page d'accueil" />
 
