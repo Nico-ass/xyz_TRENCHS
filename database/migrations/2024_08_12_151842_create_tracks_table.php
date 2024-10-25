@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Week;
+use App\Models\Category; // Assurez-vous que le modèle Category est importé
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Week::class)->constrained('weeks')->onDelete('cascade');
             $table->foreignIdFor(User::class, 'user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignIdFor(Category::class, 'category_id')->nullable()->constrained('categories')->onDelete('set null'); // Ajout de category_id
             $table->string('artist');
             $table->string('title');
             $table->string('url');
