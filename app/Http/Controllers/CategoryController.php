@@ -10,17 +10,17 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all(); // Récupérer toutes les catégories
-        return view('categories.index', compact('categories'));
+        return view('app.categories.index', compact('categories')); // Modifié ici
     }
 
     public function show(Category $category)
     {
-        return view('categories.show', compact('category'));
+        return view('app.categories.show', compact('category'));
     }
 
     public function create()
     {
-        return view('categories.create'); // Vue pour créer une catégorie
+        return view('app.categories.create');
     }
 
     public function store(Request $request)
@@ -33,6 +33,6 @@ class CategoryController extends Controller
         // Création de la catégorie
         Category::create($request->only('name'));
 
-        return redirect()->route('categories.index')->with('success', 'Catégorie créée avec succès.');
+        return redirect()->route('app.categories.index')->with('success', 'Catégorie créée avec succès.');
     }
 }

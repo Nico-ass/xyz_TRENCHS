@@ -28,10 +28,10 @@ Route::middleware([EnsureValidCodeMiddleware::class, 'guest'])->group(function (
 // Authenticated routes
 Route::middleware('auth')->group(function () {
     // Category routes
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('app.categories.show'); // Corrigé pour correspondre à l'utilisation
+    Route::get('/categories', [CategoryController::class, 'index'])->name('app.categories.index'); // Corrigé pour correspondre à l'utilisation
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('app.categories.create');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('app.categories.store');
+    Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('app.categories.show');
 
     // Home route
     Route::get('/', HomeController::class)->name('app.home');
